@@ -175,14 +175,33 @@ export function formatMessage(
   messageDescriptor = {},
   values = {}
 ) {
-  const {locale, formats, messages, defaultLocale, defaultFormats} = config;
+  const {
+    locale,
+    formats,
+    messages,
+    defaultLocale,
+    defaultFormats
+  } = config;
 
-  const {id, defaultMessage} = messageDescriptor;
+  const {
+    id,
+    defaultMessage,
+    messages: messagesOverrides,
+    translation
+  } = messageDescriptor;
 
   // `id` is a required field of a Message Descriptor.
   invariant(id, '[React Intl] An `id` must be provided to format a message.');
 
-  const message = messages && messages[id];
+  const message =
+    // `translation` can be a object with locales as keys.
+    (typeof translation === 'object' && translation[locale]) ||
+    // `translation` can be a simple string.
+    translation ||
+    // `messages` can be overwritten when being called.
+    messagesOverrides && messagesOverrides[id] ||
+    messages && messages[id];
+
   const hasValues = Object.keys(values).length > 0;
 
   // Avoid expensive message formatting for simple messages without values. In

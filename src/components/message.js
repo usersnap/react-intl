@@ -23,6 +23,11 @@ export default class FormattedMessage extends Component {
   static propTypes = {
     ...messageDescriptorPropTypes,
     values: PropTypes.object,
+    messages: PropTypes.object,
+    translation: PropTypes.oneOf([
+      PropTypes.object,
+      PropTypes.string,
+    ]),
     tagName: PropTypes.string,
     children: PropTypes.func,
   };
@@ -62,7 +67,9 @@ export default class FormattedMessage extends Component {
       id,
       description,
       defaultMessage,
+      messages,
       values,
+      translation,
       tagName: Component = Text,
       children,
     } = this.props;
@@ -107,7 +114,7 @@ export default class FormattedMessage extends Component {
       });
     }
 
-    let descriptor = {id, description, defaultMessage};
+    let descriptor = {id, description, defaultMessage, messages, translation};
     let formattedMessage = formatMessage(descriptor, tokenizedValues || values);
 
     let nodes;
