@@ -193,10 +193,14 @@ export function formatMessage(
   // `id` is a required field of a Message Descriptor.
   invariant(id, '[React Intl] An `id` must be provided to format a message.');
 
-  const message =
-    translation ||
-    messagesOverrides && messagesOverrides[id] ||
-    messages && messages[id];
+  let message;
+  if (typeof translation === 'string') {
+    message = translation;
+  } else if (messagesOverrides && typeof messagesOverrides[id] === 'string') {
+    message = messagesOverrides[id];
+  } else if (messages && typeof messages[id] === 'string') {
+    message = messages[id];
+  }
 
   const hasValues = Object.keys(values).length > 0;
 
