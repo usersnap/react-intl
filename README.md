@@ -1,3 +1,16 @@
+React Intl Usersnap fork
+========================
+We still need to put some effort in it and create three independent pr's including test coverage etc:
+- allow empty strings
+
+  —> I think this is likely to be approved
+- pass messages to formatMessage during runtime
+
+  —> I think this has a chance as it is the possibility to store messages in the component structure. At least a descussion start about that and I hope they approve it or come with a better idea to solve it
+- pass direct translation
+
+  —> Not sure about that, we could also solve it in our own `withIntl` wrapper
+
 React Intl
 ==========
 
