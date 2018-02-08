@@ -16,6 +16,9 @@ import {
 
 import {escape, filterProps} from './utils';
 
+const isString = (val) => typeof val === 'string'
+const getFirstString = (...values) => values.find(isString)
+
 const DATE_TIME_FORMAT_OPTIONS = Object.keys(dateTimeFormatPropTypes);
 const NUMBER_FORMAT_OPTIONS = Object.keys(numberFormatPropTypes);
 const RELATIVE_FORMAT_OPTIONS = Object.keys(relativeFormatPropTypes);
@@ -193,26 +196,27 @@ export function formatMessage(
   // `id` is a required field of a Message Descriptor.
   invariant(id, '[React Intl] An `id` must be provided to format a message.');
 
-  let message;
-  if (typeof translation === 'string') {
-    message = translation;
-  } else if (messagesOverrides && typeof messagesOverrides[id] === 'string') {
-    message = messagesOverrides[id];
-  } else if (messages && typeof messages[id] === 'string') {
-    message = messages[id];
-  }
+  const message = getFirstString(
+    translation,
+    messagesOverrides && messagesOverrides[id],
+    messages && messages[id],
+  );
 
   const hasValues = Object.keys(values).length > 0;
 
   // Avoid expensive message formatting for simple messages without values. In
   // development messages will always be formatted in case of missing values.
   if (!hasValues && process.env.NODE_ENV === 'production') {
-    return message || defaultMessage || id;
+    return getFirstString(
+      message,
+      defaultMessage,
+      id
+    );
   }
 
   let formattedMessage;
 
-  if (typeof message === 'string') {
+  if (isString(message)) {
     try {
       let formatter = state.getMessageFormat(message, locale, formats);
 
@@ -243,7 +247,7 @@ export function formatMessage(
     }
   }
 
-  if (!formattedMessage && defaultMessage) {
+  if (!isString(formattedMessage) && defaultMessage) {
     try {
       let formatter = state.getMessageFormat(
         defaultMessage,
@@ -262,7 +266,7 @@ export function formatMessage(
     }
   }
 
-  if (!formattedMessage) {
+  if (!isString(formattedMessage)) {
     if (process.env.NODE_ENV !== 'production') {
       console.error(
         `[React Intl] Cannot format message: "${id}", ` +
@@ -273,7 +277,12 @@ export function formatMessage(
     }
   }
 
-  return formattedMessage || message || defaultMessage || id;
+  return getFirstString(
+    formattedMessage,
+    message,
+    defaultMessage,
+    id
+  )
 }
 
 export function formatHTMLMessage(
