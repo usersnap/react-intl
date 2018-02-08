@@ -61,7 +61,7 @@ export default class FormattedMessage extends Component {
   }
 
   render() {
-    const {formatMessage, textComponent: Text} = this.context.intl;
+    const {formatMessage, textComponent: Text, locale} = this.context.intl;
 
     const {
       id,
@@ -114,7 +114,8 @@ export default class FormattedMessage extends Component {
       });
     }
 
-    let descriptor = {id, description, defaultMessage, messages, translation};
+    const localizedMessages = messages && messages[locale] || messages;
+    let descriptor = {id, description, defaultMessage, messages: localizedMessages, translation};
     let formattedMessage = formatMessage(descriptor, tokenizedValues || values);
 
     let nodes;
