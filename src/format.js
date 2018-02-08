@@ -194,11 +194,7 @@ export function formatMessage(
   invariant(id, '[React Intl] An `id` must be provided to format a message.');
 
   const message =
-    // `translation` can be a object with locales as keys.
-    (typeof translation === 'object' && translation[locale]) ||
-    // `translation` can be a simple string.
     translation ||
-    // `messages` can be overwritten when being called.
     messagesOverrides && messagesOverrides[id] ||
     messages && messages[id];
 
@@ -212,7 +208,7 @@ export function formatMessage(
 
   let formattedMessage;
 
-  if (message) {
+  if (typeof message === 'string') {
     try {
       let formatter = state.getMessageFormat(message, locale, formats);
 
