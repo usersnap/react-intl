@@ -194,8 +194,8 @@ export function formatMessage(
   const {
     id,
     defaultMessage,
-    messages: messagesOverrides,
-    translation
+    defaultMessages,
+    message: providedMessage
   } = messageDescriptor;
 
   // Produce a better error if the user calls `intl.formatMessage(element)`
@@ -208,9 +208,9 @@ export function formatMessage(
   invariant(id, '[React Intl] An `id` must be provided to format a message.');
 
   const message = getFirstString(
-    translation,
-    messagesOverrides && messagesOverrides[id],
+    providedMessage,
     messages && messages[id],
+    defaultMessages && defaultMessages[id],
   );
 
   const hasValues = Object.keys(values).length > 0;
