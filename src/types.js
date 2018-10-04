@@ -54,6 +54,7 @@ export const messageDescriptorPropTypes = {
   id: string.isRequired,
   description: oneOfType([string, object]),
   defaultMessage: string,
+  message: string,
 };
 
 export const dateTimeFormatPropTypes = {
