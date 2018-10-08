@@ -931,22 +931,46 @@ describe('format API', () => {
                 );
             });
 
-            it('returns message `id` when message and `defaultMessage` are empty', () => {
-                const {locale, messages} = config;
+            it('returns empty string message when message is empty string', () => {
+                const {messages} = config;
                 const id = 'empty';
 
                 expect(formatMessage({
                     id: id,
-                    defaultMessage: messages[id],
-                })).toBe(id);
+                    defaultMessage: 'defaultMessage',
+                })).toBe(messages[id]);
 
-                expect(consoleError.calls.length).toBe(2);
-                expect(consoleError.calls[0].arguments[0]).toContain(
-                    `[React Intl] Missing message: "${id}" for locale: "${locale}"`
-                );
-                expect(consoleError.calls[1].arguments[0]).toContain(
-                    `[React Intl] Cannot format message: "${id}", using message id as fallback.`
-                );
+                expect(consoleError.calls.length).toBe(0);
+            });
+        });
+
+        describe('provide message', () => {
+            it('returns message if message is provided', () => {
+              const message = 'Direct message.';
+
+              expect(formatMessage({
+                id: 'no_args',
+                message
+              })).toBe(message);
+            });
+
+            it('returns empty message if empty message is provided', () => {
+              const message = '';
+
+              expect(formatMessage({
+                id: 'no_args',
+                message
+              })).toBe(message);
+            });
+
+            it('returns formated message if message with placeholder is provided', () => {
+              const message = 'Direct message for {name}';
+              const values = {name: 'Eric'};
+
+              expect(formatMessage({
+                id: 'with_arg',
+                message
+              }, values)).toBe('Direct message for Eric');
             });
         });
     });

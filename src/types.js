@@ -31,6 +31,8 @@ export const intlConfigPropTypes = {
 
   defaultLocale: string,
   defaultFormats: object,
+
+  onError: func,
 };
 
 export const intlFormatPropTypes = {
@@ -54,6 +56,7 @@ export const messageDescriptorPropTypes = {
   id: string.isRequired,
   description: oneOfType([string, object]),
   defaultMessage: string,
+  message: string,
 };
 
 export const dateTimeFormatPropTypes = {

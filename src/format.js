@@ -183,19 +183,12 @@ export function formatMessage(
   messageDescriptor = {},
   values = {}
 ) {
-  const {
-    locale,
-    formats,
-    messages,
-    defaultLocale,
-    defaultFormats
-  } = config;
+  const {locale, formats, messages, defaultLocale, defaultFormats} = config;
 
   const {
     id,
     defaultMessage,
-    messages: messagesOverrides,
-    translation
+    message
   } = messageDescriptor;
 
   // Produce a better error if the user calls `intl.formatMessage(element)`
@@ -207,9 +200,8 @@ export function formatMessage(
   // `id` is a required field of a Message Descriptor.
   invariant(id, '[React Intl] An `id` must be provided to format a message.');
 
-  const message = getFirstString(
-    translation,
-    messagesOverrides && messagesOverrides[id],
+  const messageWithId = getFirstString(
+    message,
     messages && messages[id],
   );
 
@@ -219,7 +211,7 @@ export function formatMessage(
   // development messages will always be formatted in case of missing values.
   if (!hasValues && process.env.NODE_ENV === 'production') {
     return getFirstString(
-      message,
+      messageWithId,
       defaultMessage,
       id
     );
@@ -228,9 +220,9 @@ export function formatMessage(
   let formattedMessage;
   let onError = config.onError || defaultErrorHandler;
 
-  if (isString(message)) {
+  if (isString(messageWithId)) {
     try {
-      let formatter = state.getMessageFormat(message, locale, formats);
+      let formatter = state.getMessageFormat(messageWithId, locale, formats);
 
       formattedMessage = formatter.format(values);
     } catch (e) {
@@ -279,7 +271,7 @@ export function formatMessage(
     onError(
       createError(
         `Cannot format message: "${id}", ` +
-          `using message ${message || defaultMessage
+          `using message ${isString(messageWithId) || isString(defaultMessage)
             ? 'source'
             : 'id'} as fallback.`
       )
@@ -288,7 +280,7 @@ export function formatMessage(
 
   return getFirstString(
     formattedMessage,
-    message,
+    messageWithId,
     defaultMessage,
     id
   )

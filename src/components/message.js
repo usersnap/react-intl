@@ -40,11 +40,6 @@ export default class FormattedMessage extends Component {
   static propTypes = {
     ...messageDescriptorPropTypes,
     values: PropTypes.object,
-    messages: PropTypes.object,
-    translation: PropTypes.oneOf([
-      PropTypes.object,
-      PropTypes.string,
-    ]),
     tagName: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     children: PropTypes.func,
   };
@@ -80,16 +75,15 @@ export default class FormattedMessage extends Component {
   }
 
   render() {
-    const {formatMessage = defaultFormatMessage, textComponent: Text = 'span', locale} =
+    const {formatMessage = defaultFormatMessage, textComponent: Text = 'span'} =
       this.context.intl || {};
 
     const {
       id,
       description,
       defaultMessage,
-      messages,
+      message,
       values,
-      translation,
       tagName: Component = Text,
       children,
     } = this.props;
@@ -134,8 +128,7 @@ export default class FormattedMessage extends Component {
       });
     }
 
-    const localizedMessages = messages && messages[locale] || messages;
-    let descriptor = {id, description, defaultMessage, messages: localizedMessages, translation};
+    let descriptor = {id, description, defaultMessage, message};
     let formattedMessage = formatMessage(descriptor, tokenizedValues || values);
 
     let nodes;

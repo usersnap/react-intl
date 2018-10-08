@@ -290,4 +290,27 @@ describe('<FormattedMessage>', () => {
             <strong>Hello, <b>Prem</b>!</strong>
         );
     });
+
+    it('uses the message prop', () => {
+        const {intl} = intlProvider.getChildContext();
+
+        const el = (
+            <FormattedMessage
+                id="hello"
+                defaultMessage="Default hello, {name}!"
+                message="Hello, {name}!"
+                values={{
+                    name: <b>Prem</b>,
+                }}
+            />
+        );
+
+        renderer.render(el, {intl});
+        const rendered = renderer.getRenderOutput();
+
+        expect(rendered.props.children).toBeAn('array');
+        expect(rendered).toEqualJSX(
+            <span>Hello, <b>Prem</b>!</span>
+        );
+    });
 });
