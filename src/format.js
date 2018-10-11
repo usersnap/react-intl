@@ -197,6 +197,12 @@ export function formatMessage(
           'formatMessage(), pass `.props`.');
   }
 
+  // Produce a better error if the user calls `intl.formatMessage(element)`
+  if (process.env.NODE_ENV !== 'production') {
+      invariant(!isValidElement(config), '[React Intl] Don\'t pass React elements to ' +
+          'formatMessage(), pass `.props`.');
+  }
+
   // `id` is a required field of a Message Descriptor.
   invariant(id, '[React Intl] An `id` must be provided to format a message.');
 
@@ -271,7 +277,7 @@ export function formatMessage(
     onError(
       createError(
         `Cannot format message: "${id}", ` +
-          `using message ${isString(messageWithId) || isString(defaultMessage)
+          `using message ${message || defaultMessage
             ? 'source'
             : 'id'} as fallback.`
       )
