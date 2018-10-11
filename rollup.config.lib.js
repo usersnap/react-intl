@@ -22,6 +22,7 @@ export default {
     'invariant',
     'react',
     'prop-types',
+    'hoist-non-react-statics',
     p.resolve('locale-data/index.js'),
   ],
   plugins: [babel()],
