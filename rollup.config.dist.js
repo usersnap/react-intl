@@ -24,8 +24,8 @@ export default {
   output: {
     file: p.resolve(`dist/react-intl.${isProduction ? 'min.js' : 'js'}`),
     format: 'umd',
+    name: 'ReactIntl',
   },
-  name: 'ReactIntl',
   banner: copyright,
   intro: reactCheck,
   sourcemap: true,
