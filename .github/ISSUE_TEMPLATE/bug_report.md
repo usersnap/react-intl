@@ -1,16 +1,16 @@
+---
+name: Bug report
+about: Create a report to help us improve
+title: ''
+labels: ''
+assignees: ''
+---
+
 <!-- Thank you so much for filing this issue! Please provide the detail about your problem! -->
 
-### Is this a BUG REPORT or FEATURE REQUEST? (choose one)
-
 <!--
-If this is a BUG REPORT, please:
-
   - Before file an issue, please verify it is a bug for react-intl not **intl.js polyfill** and **Unicode CLDR**.
   - Fill in as much of the template below as you can. If you leave out information, we can't help you as well.
-
-If this is a FEATURE REQUEST, please:
-
-  - Describe **in detail** the feature/behavior/change you'd like to see.
 -->
 
 ### Expected behavior
