@@ -86,12 +86,13 @@ class FormattedMessage<
             id,
             description,
             defaultMessage,
+            message,
             values,
             children,
             tagName: Component = Text,
           } = this.props;
 
-          const descriptor = {id, description, defaultMessage};
+          const descriptor = {id, description, defaultMessage, message};
           let nodes: string | React.ReactNodeArray = formatMessage(
             descriptor,
             values

@@ -140,6 +140,7 @@ export interface MessageDescriptor {
   id: string;
   description?: string | object;
   defaultMessage?: string;
+  message?: string;
 }
 
 export type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;

@@ -150,3 +150,8 @@ export function getNamedFormat<T extends keyof CustomFormats>(
 
   onError(createError(`No ${type} format named: ${name}`));
 }
+
+export const isStringOrNonEmptyArray = (val: any) =>
+  typeof val === 'string' || (Array.isArray(val) && val.length > 0);
+export const getFirstValidOption = (...values: any) =>
+  values.find(isStringOrNonEmptyArray);

@@ -14,7 +14,7 @@ const invariant: typeof invariant_ = (invariant_ as any).default || invariant_;
 
 import {Formatters, IntlConfig, MessageDescriptor} from '../types';
 
-import {createError, escape} from '../utils';
+import {createError, escape, getFirstValidOption} from '../utils';
 import {LiteralElement, TYPE} from 'intl-messageformat-parser';
 import {FormatXMLElementFn, PrimitiveType} from 'intl-messageformat';
 
@@ -71,18 +71,20 @@ export function formatMessage(
     PrimitiveType | React.ReactElement | FormatXMLElementFn
   > = {}
 ): string | React.ReactNodeArray {
-  const {id, defaultMessage} = messageDescriptor;
+  const {id, defaultMessage, message} = messageDescriptor;
 
   // `id` is a required field of a Message Descriptor.
   invariant(id, '[React Intl] An `id` must be provided to format a message.');
 
-  const message = messages && messages[id];
+  const messageWithId = getFirstValidOption(message, messages && messages[id]);
+
   const hasValues = Object.keys(values).length > 0;
 
   // Avoid expensive message formatting for simple messages without values. In
   // development messages will always be formatted in case of missing values.
   if (!hasValues && process.env.NODE_ENV === 'production') {
-    const val = message || defaultMessage || id;
+    const val = getFirstValidOption(messageWithId, defaultMessage, id);
+
     if (typeof val === 'string') {
       return escapeUnformattedMessage(val);
     }
@@ -95,9 +97,9 @@ export function formatMessage(
 
   let formattedMessageParts: Array<string | object> = [];
 
-  if (message) {
+  if (messageWithId) {
     try {
-      let formatter = state.getMessageFormat(message, locale, formats, {
+      let formatter = state.getMessageFormat(messageWithId, locale, formats, {
         formatters: state,
       });
 
@@ -149,12 +151,12 @@ export function formatMessage(
       createError(
         `Cannot format message: "${id}", ` +
           `using message ${
-            message || defaultMessage ? 'source' : 'id'
+            messageWithId || defaultMessage ? 'source' : 'id'
           } as fallback.`
       )
     );
-    if (typeof message === 'string') {
-      return message || defaultMessage || id;
+    if (typeof messageWithId === 'string') {
+      return messageWithId || defaultMessage || id;
     }
     return defaultMessage || id;
   }

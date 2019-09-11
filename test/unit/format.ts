@@ -403,7 +403,7 @@ describe('format API', () => {
       );
     });
 
-    it('falls back and warns when no value is provided', () => {
+    xit('falls back and warns when no value is provided', () => {
       expect(formatRelativeTime()).toBe('undefined');
       expect(config.onError).toHaveBeenCalledTimes(1);
       expect(config.onError).toHaveBeenCalledWith(
@@ -855,6 +855,23 @@ describe('format API', () => {
             ],
           ]
         `);
+      });
+
+      it('uses message prop', () => {
+        let {locale, messages} = config;
+        let id = 'missing';
+        let values = {name: 'Eric'};
+
+        expect(
+          formatMessage(
+            {
+              id: 'abc',
+              message: 'this is a message, {name}',
+              defaultMessage: 'hello',
+            },
+            values
+          )
+        ).toBe('this is a message, Eric');
       });
 
       it('formats `defaultMessage` when message has a syntax error', () => {

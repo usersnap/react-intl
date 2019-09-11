@@ -1,3 +1,13 @@
+React Intl Usersnap fork
+========================
+We still need to put some effort in it and create three independent pr's including test coverage etc:
+- allow empty strings
+  —> I consider this as bug, but there was a test checking that empty strings are treated as non existing
+
+- pass message direct to formatMessage
+  —> I think this has a chance as it is the possibility to store messages in the component structure or pass in strings via props to a component and still parse them with intl
+
+
 # React Intl
 
 Internationalize [React][] apps. This library provides React components and an API to format dates, numbers, and strings, including pluralization and handling translations.
