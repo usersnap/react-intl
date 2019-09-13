@@ -58,8 +58,12 @@ function formatMessage(_a, state, messageDescriptor, values) {
         // default locale, and a default message is in the source.
         if (!defaultMessage ||
             (locale && locale.toLowerCase() !== defaultLocale.toLowerCase())) {
-            onError(utils_1.createError("Missing message: \"" + id + "\" for locale: \"" + locale + "\"" +
-                (defaultMessage ? ', using default message as fallback.' : '')));
+            // onError(
+            //   createError(
+            //     `Missing message: "${id}" for locale: "${locale}"` +
+            //       (defaultMessage ? ', using default message as fallback.' : '')
+            //   )
+            // );
         }
     }
     if (!formattedMessageParts.length && defaultMessage) {

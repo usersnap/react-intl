@@ -121,12 +121,13 @@ export function formatMessage(
       !defaultMessage ||
       (locale && locale.toLowerCase() !== defaultLocale.toLowerCase())
     ) {
-      onError(
-        createError(
-          `Missing message: "${id}" for locale: "${locale}"` +
-            (defaultMessage ? ', using default message as fallback.' : '')
-        )
-      );
+
+      // onError(
+      //   createError(
+      //     `Missing message: "${id}" for locale: "${locale}"` +
+      //       (defaultMessage ? ', using default message as fallback.' : '')
+      //   )
+      // );
     }
   }
 
