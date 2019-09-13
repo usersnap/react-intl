@@ -72,10 +72,16 @@ function formatMessage(_a, state, messageDescriptor, values) {
         }
     }
     if (!formattedMessageParts.length) {
-        onError(utils_1.createError("Cannot format message: \"" + id + "\", " +
-            ("using message " + (messageWithId || defaultMessage ? 'source' : 'id') + " as fallback.")));
+        // onError(
+        //   createError(
+        //     `Cannot format message: "${id}", ` +
+        //       `using message ${
+        //         messageWithId || defaultMessage ? 'source' : 'id'
+        //       } as fallback.`
+        //   )
+        // );
         if (typeof messageWithId === 'string') {
-            return messageWithId || defaultMessage || id;
+            return messageWithId;
         }
         return defaultMessage || id;
     }

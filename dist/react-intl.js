@@ -4574,10 +4574,16 @@
       }
 
       if (!formattedMessageParts.length) {
-        onError(createError("Cannot format message: \"".concat(id, "\", ") + "using message ".concat(messageWithId || defaultMessage ? 'source' : 'id', " as fallback.")));
-
+        // onError(
+        //   createError(
+        //     `Cannot format message: "${id}", ` +
+        //       `using message ${
+        //         messageWithId || defaultMessage ? 'source' : 'id'
+        //       } as fallback.`
+        //   )
+        // );
         if (typeof messageWithId === 'string') {
-          return messageWithId || defaultMessage || id;
+          return messageWithId;
         }
 
         return defaultMessage || id;
