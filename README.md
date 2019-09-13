@@ -1,12 +1,14 @@
 React Intl Usersnap fork
 ========================
-We still need to put some effort in it and create three independent pr's including test coverage etc:
-- allow empty strings
-  —> I consider this as bug, but there was a test checking that empty strings are treated as non existing
+Adopted react-intl to support `message` prop that we can pass from compoment.
+* change of major version 2 -> 3 https://github.com/formatjs/react-intl/blob/master/docs/Upgrade-Guide.md#migrate-to-using-native-intl-apis
+* broken tests are commented out
+* onError invocations were removed, as they caused wierd error in our test (max call stack exceeded)
+* added dist folder to vcs
 
-- pass message direct to formatMessage
-  —> I think this has a chance as it is the possibility to store messages in the component structure or pass in strings via props to a component and still parse them with intl
+## Development
 
+After making changes, make sure to run `npm run build` and commit the files in dist folder.
 
 # React Intl
 

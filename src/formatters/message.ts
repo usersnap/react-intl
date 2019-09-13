@@ -113,15 +113,6 @@ export function formatMessage(
         )
       );
     }
-  } else {
-    // This prevents warnings from littering the console in development
-    // when no `messages` are passed into the <IntlProvider> for the
-    // default locale, and a default message is in the source.
-    if (
-      !defaultMessage ||
-      (locale && locale.toLowerCase() !== defaultLocale.toLowerCase())
-    ) {
-    }
   }
 
   if (!formattedMessageParts.length && defaultMessage) {
