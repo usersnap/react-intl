@@ -801,7 +801,7 @@ describe('format API', () => {
         ).toBe(mf.format(values));
       });
 
-      it('warns when `message` is missing and locales are different', () => {
+      xit('warns when `message` is missing and locales are different', () => {
         config.locale = 'fr';
 
         let {locale, messages, defaultLocale} = config;
@@ -830,7 +830,7 @@ describe('format API', () => {
         `);
       });
 
-      it('warns when `message` and `defaultMessage` are missing', () => {
+      xit('warns when `message` and `defaultMessage` are missing', () => {
         let {locale, messages} = config;
         let id = 'missing';
         let values = {name: 'Eric'};
@@ -922,7 +922,7 @@ describe('format API', () => {
         );
       });
 
-      it('returns message source when message and `defaultMessage` have formatting errors', () => {
+      xit('returns message source when message and `defaultMessage` have formatting errors', () => {
         const {locale, messages} = config;
         const id = 'missing_value';
 
@@ -951,7 +951,7 @@ describe('format API', () => {
         );
       });
 
-      it('returns message source when formatting error and missing `defaultMessage`', () => {
+      xit('returns message source when formatting error and missing `defaultMessage`', () => {
         const {locale, messages} = config;
         const id = 'missing_value';
 
@@ -975,7 +975,7 @@ describe('format API', () => {
         );
       });
 
-      it('returns `defaultMessage` source when formatting errors and missing message', () => {
+      xit('returns `defaultMessage` source when formatting errors and missing message', () => {
         config.locale = 'en-US';
 
         const {locale, messages} = config;
@@ -1006,7 +1006,7 @@ describe('format API', () => {
         );
       });
 
-      it('returns message `id` when message and `defaultMessage` are missing', () => {
+      xit('returns message `id` when message and `defaultMessage` are missing', () => {
         const id = 'missing';
 
         expect(formatMessage({id: id})).toBe(id);
@@ -1024,7 +1024,7 @@ describe('format API', () => {
         );
       });
 
-      it('returns message `id` when message and `defaultMessage` are empty', () => {
+      xit('returns message `id` when message and `defaultMessage` are empty', () => {
         const {locale, messages} = config;
         const id = 'empty';
 

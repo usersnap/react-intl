@@ -58,12 +58,6 @@ function formatMessage(_a, state, messageDescriptor, values) {
         // default locale, and a default message is in the source.
         if (!defaultMessage ||
             (locale && locale.toLowerCase() !== defaultLocale.toLowerCase())) {
-            // onError(
-            //   createError(
-            //     `Missing message: "${id}" for locale: "${locale}"` +
-            //       (defaultMessage ? ', using default message as fallback.' : '')
-            //   )
-            // );
         }
     }
     if (!formattedMessageParts.length && defaultMessage) {
@@ -76,14 +70,6 @@ function formatMessage(_a, state, messageDescriptor, values) {
         }
     }
     if (!formattedMessageParts.length) {
-        // onError(
-        //   createError(
-        //     `Cannot format message: "${id}", ` +
-        //       `using message ${
-        //         messageWithId || defaultMessage ? 'source' : 'id'
-        //       } as fallback.`
-        //   )
-        // );
         if (typeof messageWithId === 'string') {
             return messageWithId;
         }

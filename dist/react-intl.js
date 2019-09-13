@@ -4572,14 +4572,6 @@
       }
 
       if (!formattedMessageParts.length) {
-        // onError(
-        //   createError(
-        //     `Cannot format message: "${id}", ` +
-        //       `using message ${
-        //         messageWithId || defaultMessage ? 'source' : 'id'
-        //       } as fallback.`
-        //   )
-        // );
         if (typeof messageWithId === 'string') {
           return messageWithId;
         }
