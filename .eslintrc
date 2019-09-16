@@ -1,5 +1,5 @@
 {
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "sourceType": "module",
     "allowImportExportEverywhere": false
@@ -12,11 +12,11 @@
     "jest": true
   },
   "plugins": [
-    "react"
+    "react",
+    "@typescript-eslint"
   ],
   "rules": {
     "eqeqeq": 2,
-    "prefer-arrow-callback": 2,
     "strict": [2, "never"],
     "yoda": [2, "never"],
 
@@ -29,6 +29,6 @@
     "no-var": 2,
 
     "react/jsx-uses-react": 2,
-    "react/jsx-uses-vars": 2,
+    "react/jsx-uses-vars": 2
   }
 }
